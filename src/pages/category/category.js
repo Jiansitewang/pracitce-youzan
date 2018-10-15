@@ -1,0 +1,48 @@
+import 'css/common.css'
+import './category.css'
+
+import Vue from 'vue'
+import axios from 'axios'
+import Foot from 'components/Foot.vue'
+import url from 'js/api.js'
+
+new Vue({
+  el:'#app',
+  data: {
+    topLists: null,
+    topIndex: 0,
+    subData: null,
+    rankData: null,
+  },
+  created(){
+    this.getTopLists()
+    this.getSubList(0,0)
+    this.getRank()
+  },
+  methods: {
+    getTopLists(){
+      axios.post(url.topList).then(xxx =>{
+        this.topLists = xxx.data.lists
+      })
+    },
+    getSubList(index,id){
+      this.topIndex = index
+      if(index === 0){
+        this.getRank()
+      }else {
+        axios.post(url.subLists,{id}).then(xxx => {
+          this.subData = xxx.data.data
+        })
+      }
+    },
+    getRank(){
+      axios.post(url.rank).then(xxx => {
+        this.rankData = xxx.data.data
+      })
+    }
+  },
+
+  components: {
+    Foot
+  }
+})
