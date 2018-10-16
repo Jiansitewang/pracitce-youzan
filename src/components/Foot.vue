@@ -13,7 +13,6 @@
 
 <script>
   import qs from 'qs'
-
   let {index} = qs.parse(location.search.substr(1))
 
   let navConfig = [{

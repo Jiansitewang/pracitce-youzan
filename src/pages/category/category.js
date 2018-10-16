@@ -5,6 +5,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import Foot from 'components/Foot.vue'
 import url from 'js/api.js'
+import mixin from 'js/mixin'
 
 new Vue({
   el:'#app',
@@ -44,8 +45,5 @@ new Vue({
       location.href = `search.html?keyword=${list.name}&id=${list.id}`
     }
   },
-
-  components: {
-    Foot
-  }
+  mixins:[mixin]
 })
