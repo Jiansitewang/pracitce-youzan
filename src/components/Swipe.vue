@@ -17,7 +17,6 @@
   import 'swiper/dist/css/swiper.css'
 
   export default {
-    name: "Swipe",
     props: {
       lists: {
         type: Array,
@@ -28,12 +27,19 @@
     created(){
 
     },
-    mounted(){
-      new Swiper('.swiper-container',{
-        loop: true,
-        pagination: '.swiper-pagination'
-      })
-    }
+    mounted() {
+      this.init()
+    },
+    methods: {
+      init() {
+        new Swiper('.swiper-container', {
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+          }
+        })
+      }
+    },
   }
 </script>
 
