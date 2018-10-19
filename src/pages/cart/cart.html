@@ -33,7 +33,7 @@
           <div class="block block-order block-cart">
             <div class="header">
               <div class="select-group js-select-group">
-                <span class="check" :class="{checked:shop.checked}"></span>
+                <span class="check" :class="{checked:shop.checked}" @click="selectShop(shop)"></span>
               </div>
               <a class="shop-title">
                 <i class="custom-store-img">店铺：</i>
@@ -49,7 +49,7 @@
                     v-for="(good,goodIndex) in shop.goodsList ">
                   <div>
                     <div class="check-container">
-                      <span class="check" :class="{checked:good.checked}"  @click="selectGood(good)"></span>
+                      <span class="check" :class="{checked:good.checked}"  @click="selectGood(shop,good)"></span>
                     </div>
                     <div class="name-card clearfix">
                       <!---->
@@ -81,7 +81,7 @@
                           </div>
                         </div>
                         <div class="price c-orange">
-                          ¥<span>189.00 </span></div>
+                          ¥<span>{{good.price}} </span></div>
                       </div>
                       <div class="error-box"></div>
                     </div>
@@ -134,16 +134,16 @@
             你需要分开结算每个店铺的商品哦~
           </div>
           <div class="bottom-cart clear-fix">
-            <div class="select-all"><span class="check"></span> 全选
+            <div class="select-all"><span class="check" :class="{checked: allSelected}" @click="selectAll"></span> 全选
             </div>
             <!-- 显示状态 -->
-            <div class="total-price" style="display: none;">
-              合计：¥<span class="js-total-price" style="color: rgb(255, 102, 0);">684.99</span>
+            <div class="total-price">
+              合计：¥<span class="js-total-price" style="color: rgb(255, 102, 0);">{{total | currency}}</span>
               <p class="c-gray-dark">不含运费</p>
             </div>
             <button href="javascript:;"
                     class="js-go-pay btn btn-orange-dark font-size-14"
-                    disabled>
+                    :disabled="!selectLists.length">
               结算 (3)
             </button>
             <!-- 编辑状态 -->
