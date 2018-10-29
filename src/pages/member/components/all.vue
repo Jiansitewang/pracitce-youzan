@@ -19,18 +19,39 @@
 </template>
 
 <script>
-  import Address from 'js/addressService.js'
+  // 不使用vuex版本
+
+
+  // import Address from 'js/addressService.js'
+  //
+  // export default {
+  //   data(){
+  //     return {
+  //       lists: null
+  //     }
+  //   },
+  //   created(){
+  //     Address.list().then(res => {
+  //       this.lists = res.data.lists
+  //     })
+  //   },
+  //   methods: {
+  //     toEdit(list){
+  //       this.$router.push({name: 'form', query: {type: 'edit',instance: list}})
+  //     }
+  //   }
+  // }
+
+  // 使用vuex版本
 
   export default {
-    data(){
-      return {
-        lists: null
+    computed: {
+      lists() {
+        return this.$store.state.lists
       }
     },
-    created(){
-      Address.list().then(res => {
-        this.lists = res.data.lists
-      })
+    created() {
+      this.$store.dispatch('getLists')
     },
     methods: {
       toEdit(list){
