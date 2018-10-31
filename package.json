@@ -2,11 +2,11 @@
   "name": "maijia",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "tony <fangtao_2008@163.com>",
+  "author": "Wak",
   "private": true,
   "scripts": {
     "postinstall": "npm run build",
-    "start": "node server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
