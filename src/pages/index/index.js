@@ -27,22 +27,20 @@ let app = new Vue({
  },
   methods:{
     getLists() {
-      if(this.allLoaded) return
-      //阻止重复拉取数据、div.loading-more状态判定
-      this.loading = true
-      axios.post(url.hotLists, {
+      if(this.allLoaded) return //判断所有数据是否加载完毕
+      this.loading = true //阻止重复拉取数据、div.loading-more状态判定
+      axios.get(url.hotLists, {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       }).then(res => {
         let curLists = res.data.lists
-        if(curLists.length < this.pageSize){
-          //判断所有数据是否加载完毕
+        if(curLists.length < this.pageSize){//判断所有数据是否加载完毕
           this.allLoaded = true
         }
-        if (this.lists){
+        if(this.lists){
           this.lists = this.lists.concat(curLists)
         }else{
-          this.lists = curLists
+          this.lists = curLists// 第一次请求数据,lists: null
         }
         this.loading = false //阻止重复拉取数据
         this.pageNum++

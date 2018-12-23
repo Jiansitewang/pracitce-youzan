@@ -37,7 +37,7 @@ new Vue({
   },
   methods:{
     getDetails(){
-      axios.post(url.details,{id}).then(res => {
+      axios.get(url.details,{id}).then(res => {
         this.details = res.data.data
         this.bannerList = []
         this.details.imgs.forEach(item => {
@@ -55,7 +55,7 @@ new Vue({
       }
     },
     getDeal(){
-      axios.post(url.deal,{id}).then(res => {
+      axios.get(url.deal,{id}).then(res => {
         this.dealLists = res.data.data.lists
       })
     },
@@ -68,7 +68,7 @@ new Vue({
       this.skuNum += num
     },
     cartAdd(){
-      axios.post(url.cartAdd, {
+      axios.get(url.cartAdd, {
         id,
         number: this.skuNum
       }).then(res => {
