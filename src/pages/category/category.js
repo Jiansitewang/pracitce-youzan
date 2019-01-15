@@ -3,7 +3,7 @@ import './category.css'
 
 import Vue from 'vue'
 import axios from 'axios'
-import Foot from 'components/Foot.vue'
+
 import url from 'js/api.js'
 import mixin from 'js/mixin'
 
@@ -31,7 +31,7 @@ new Vue({
       if(index === 0){
         this.getRank()
       }else {
-        axios.post(url.subLists,{id}).then(xxx => {
+        axios.get(url.subLists,{id}).then(xxx => {
           this.subData = xxx.data.data
         })
       }

@@ -8,14 +8,14 @@ import qs from 'qs'
 import mixin from 'js/mixin'
 
 let {keyword,id} = qs.parse(location.search.substr(1))
-console.log(document.body.scrollTop)
+
 
 new Vue({
   el: '.container',
   data: {
     searchList: null,
     keyword,
-    isShow: false
+    isShow: true
   },
   created(){
     this.getSearchList()
@@ -27,7 +27,9 @@ new Vue({
       })
     },
     move(){
-      if(document.body.scrollTop > 50){
+      let tempScrollTop = document.documentElement.scrollTop + document.body.scrollTop
+      console.log(tempScrollTop)
+      if(tempScrollTop > 1){
         this.isShow = true
       }else{
         this.isShow = false

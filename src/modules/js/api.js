@@ -24,7 +24,8 @@ let url = {
 //开发环境和真实环境
 // let host = ''
 // let host = 'http://rapapi.org/mockjsdata/34221'
-let host = 'http://rap2api.taobao.org/app/mock/7058'
+// let host = 'http://rap2api.taobao.org/app/mock/7058'
+let host = ' https://easy-mock.com/mock/5c3c4d35e477ea245d360113/youzan'
 
 for (let key in url){
   if(url.hasOwnProperty(key)){
