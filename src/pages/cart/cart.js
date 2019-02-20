@@ -46,6 +46,7 @@ new Vue({
         if(this.editingShop){
           return this.editingShop.removeChecked
         }
+        return false
       },
       set(newVal){
         if(this.editingShop){
@@ -113,7 +114,7 @@ new Vue({
     selectShop(shop){
       let attr = this.editingShop ? 'removeChecked' : 'checked'
       shop[attr] = !shop[attr]
-      shop[attr].forEach(good => {
+      shop.goodsList.forEach(good => {
         good[attr] = shop[attr]
       })
     },
@@ -135,26 +136,26 @@ new Vue({
     },
     reduce(good){
       if(good.number===1) return
-      // axios.post(url.cartReduce,{
-      //   id: good.id,
-      //   number: 1
-      // }).then(res =>{
-      //   good.number--
-      // })
-      Cart.reduce(good.id).then(res => {
+      axios.post(url.cartReduce,{
+        id: good.id,
+        number: 1
+      }).then(res =>{
         good.number--
       })
+      // Cart.reduce(good.id).then(res => {
+      //   good.number--
+      // })
     },
     add(good){
-      // axios.post(url.cartAdd,{
-      //   id: good.id,
-      //   number: 1
-      // }).then(res =>{
-      //   good.number++
-      // })
-      Cart.add(good.id).then(res => {
+      axios.post(url.cartAdd,{
+        id: good.id,
+        number: 1
+      }).then(res =>{
         good.number++
       })
+      // Cart.add(good.id).then(res => {
+      //   good.number++
+      // })
     },
     remove(shop,shopIndex,good,goodIndex){
       this.removePopup = true
@@ -166,15 +167,15 @@ new Vue({
       this.removeMsg = `确定将所选 ${this.removeLists.length} 个商品删除？`
     },
     removeConfirm(){
-      if(this.removeMsg === '确定要删除该商品吗'){
+      if(this.removeMsg === '确定要删除该商品吗？'){
         let {shop,shopIndex,good,goodIndex} = this.removeData
         axios.post(url.cartRemove,{
           id: good.id
-        }).then(res => {
+        }).then(res => { //本地数据操作
           shop.goodsList.splice(goodIndex,1)
           if(!shop.goodsList.length){
             this.lists.splice(shopIndex,1)
-            this.removeShop()
+            this.quitEdit()
           }
           this.removePopup = false
         })
@@ -199,13 +200,13 @@ new Vue({
             this.editingShop.goodsList = arr
           }else{
             this.lists.splice(this.editingShopIndex,1)
-            this.removeShop()
+            this.quitEdit()
           }
           this.removePopup = false
         })
       }
     },
-    removeShop(){
+    quitEdit(){
       this.editingShop = null
       this.editingShopIndex = -1
       this.lists.forEach(shop => {
@@ -214,5 +215,5 @@ new Vue({
       })
     }
   },
-  mixin:[mixin]
+  mixins: [mixin]
 })
