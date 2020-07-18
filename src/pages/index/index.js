@@ -29,7 +29,7 @@ let app = new Vue({
     getLists() {
       if(this.allLoaded) return //判断所有数据是否加载完毕
       this.loading = true //阻止重复拉取数据、div.loading-more状态判定
-      axios.get(url.hotLists, {
+      axios.post(url.hotLists, {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       }).then(res => {
